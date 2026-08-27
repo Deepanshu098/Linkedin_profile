@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - LINKEDIN_LI_AT=${LINKEDIN_LI_AT}
+      - LINKEDIN_JSESSIONID=${LINKEDIN_JSESSIONID}
+    env_file:
+      - .env
+    restart: always
