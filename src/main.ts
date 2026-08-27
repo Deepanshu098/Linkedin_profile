@@ -37,6 +37,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
+  // Redirect root GET / to Swagger /docs/ page
+  const httpAdapter = app.getHttpAdapter();
+  const serverInstance = httpAdapter.getInstance();
+  serverInstance.get('/', (req: any, res: any) => {
+    res.redirect('/docs/');
+  });
+
   const port = process.env.PORT || 3000;
   await app.listen(port);
   
